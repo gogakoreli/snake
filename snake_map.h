@@ -12,12 +12,12 @@
 class SnakeMap
 {
 public:
-  SnakeMap(Snake snake);
+  SnakeMap(Snake *snake);
   void redraw();
 
 private:
   char map_array[MAP_HEIGHT][MAP_WIDTH];
-  Snake snake;
+  Snake *snake;
 };
 
 void clear_map(char map_array[MAP_HEIGHT][MAP_WIDTH]);

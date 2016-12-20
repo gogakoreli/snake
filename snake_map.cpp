@@ -17,7 +17,7 @@ void clear_map(char map_array[MAP_HEIGHT][MAP_WIDTH])
     }
 }
 
-SnakeMap::SnakeMap(Snake snake)
+SnakeMap::SnakeMap(Snake *snake)
 {
     this->snake = snake;
     clear_map(this->map_array);
@@ -30,7 +30,7 @@ void SnakeMap::redraw(void)
     {
         cout << endl;
     }
-    vector<pair<int, int>> snake_parts = snake.snake_parts;
+    vector<pair<int, int>> snake_parts = snake->snake_parts;
     for (int i = 0; i < snake_parts.size(); i++)
     {
         pair<int, int> tmp = snake_parts[i];

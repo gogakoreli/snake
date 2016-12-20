@@ -12,7 +12,7 @@
 using namespace std;
 
 Snake snake;
-SnakeMap snake_map(snake);
+SnakeMap snake_map(&snake);
 
 void initialize()
 {
@@ -24,6 +24,7 @@ void start_game()
 {
     while (true)
     {
+        snake.update_movement();
         snake_map.redraw();
         usleep(1000 * 1000);
         snake.validate_direction();

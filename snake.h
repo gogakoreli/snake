@@ -19,6 +19,7 @@ public:
   void validate_direction();
   vector<pair<int, int>> snake_parts;
   pair<int, int> snake_head;
+  void update_movement();
 
 private:
   pthread_t input_thread;

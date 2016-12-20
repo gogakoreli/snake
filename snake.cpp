@@ -82,3 +82,26 @@ void Snake::validate_direction(void)
         update_direction(next_direction);
     }
 }
+
+void Snake::update_movement(void)
+{
+    snake_parts.erase(snake_parts.begin());
+    pair<int, int> new_part;
+    switch (this->direction)
+    {
+    case West:
+        new_part = make_pair(snake_head.first, snake_head.second - 1);
+        break;
+    case North:
+        new_part = make_pair(snake_head.first - 1, snake_head.second);
+        break;
+    case East:
+        new_part = make_pair(snake_head.first, snake_head.second + 1);
+        break;
+    case South:
+        new_part = make_pair(snake_head.first + 1, snake_head.second);
+        break;
+    }
+    snake_head = new_part;
+    snake_parts.push_back(new_part);
+}
