@@ -9,8 +9,8 @@ class Snake
 {
   public:
     Snake();
-    void update_next_direction(enum Direction direction);
     void update_direction(enum Direction direction);
+    void update_next_direction(enum Direction direction);
     enum Direction get_direction();
     void validate_direction();
 

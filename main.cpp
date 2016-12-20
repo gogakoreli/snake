@@ -7,9 +7,11 @@
 #include <bits/stdc++.h>
 #include "input.h"
 #include "snake.h"
+#include "snake_map.h"
 
 using namespace std;
 
+SnakeMap snake_map;
 Snake snake;
 
 void initialize()
@@ -22,8 +24,9 @@ void start_game()
 {
     while (true)
     {
-        cout << "Snake Direction is:" << snake.get_direction() << endl;
-        cout << "now sleeping" << endl;
+        // cout << "Snake Direction is:" << snake.get_direction() << endl;
+        // cout << "now sleeping" << endl;
+        snake_map.redraw();
         usleep(1000 * 1000);
         snake.validate_direction();
     }
