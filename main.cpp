@@ -7,7 +7,6 @@
 #include <bits/stdc++.h>
 #include "input.h"
 #include "snake.h"
-#include <condition_variable>
 
 using namespace std;
 
@@ -26,6 +25,7 @@ void start_game()
         cout << "Snake Direction is:" << snake.get_direction() << endl;
         cout << "now sleeping" << endl;
         usleep(1000 * 1000);
+        snake.validate_direction();
     }
 }
 

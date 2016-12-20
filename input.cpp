@@ -8,20 +8,19 @@
 using namespace std;
 
 struct termios t;
-sem_t input_sema;
 
 void input_enter_off()
 {
-    tcgetattr(STDIN_FILENO, &t);          //get the current terminal I/O structure
-    t.c_lflag &= ~ICANON;                 //Manipulate the flag bits to do what you want it to do
-    tcsetattr(STDIN_FILENO, TCSANOW, &t); //Apply the new settings
+    tcgetattr(STDIN_FILENO, &t);
+    t.c_lflag &= ~ICANON;
+    tcsetattr(STDIN_FILENO, TCSANOW, &t);
 }
 
 void input_enter_on()
 {
-    tcgetattr(STDIN_FILENO, &t);          //get the current terminal I/O structure
-    t.c_lflag |= ICANON;                  //Manipulate the flag bits to do what you want it to do
-    tcsetattr(STDIN_FILENO, TCSANOW, &t); //Apply the new settings
+    tcgetattr(STDIN_FILENO, &t);
+    t.c_lflag |= ICANON;
+    tcsetattr(STDIN_FILENO, TCSANOW, &t);
 }
 
 enum Direction get_input()
@@ -52,5 +51,5 @@ enum Direction get_input()
 
 void input_init()
 {
-    sem_init(&input_sema, 0, 1);
+    
 }

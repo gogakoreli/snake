@@ -10,7 +10,7 @@ void *input_thread_work(void *arg)
     while (true)
     {
         enum Direction direction = get_input();
-        snake->update_direction(direction);
+        snake->update_next_direction(direction);
     }
 }
 
@@ -19,6 +19,11 @@ Snake::Snake(void)
     direction = East;
     pthread_create(&input_thread, NULL, input_thread_work, this);
     sem_init(&snake_sema, 0, 1);
+}
+
+void Snake::update_next_direction(enum Direction direction)
+{
+    this->next_direction = direction;
 }
 
 void Snake::update_direction(enum Direction direction)
@@ -61,4 +66,12 @@ enum Direction Snake::get_direction(void)
     result = this->direction;
     sem_post(&this->snake_sema);
     return result;
+}
+
+void Snake::validate_direction(void)
+{
+    if (next_direction != Error)
+    {
+        update_direction(next_direction);
+    }
 }
