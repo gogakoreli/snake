@@ -1,6 +1,9 @@
 #include "snake.h"
 #include <pthread.h>
 #include <iostream>
+#include <vector>
+#include <utility>
+#include "snake_map.h"
 
 using namespace std;
 
@@ -17,6 +20,10 @@ void *input_thread_work(void *arg)
 Snake::Snake(void)
 {
     direction = East;
+    snake_parts.push_back(make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2 - 1));
+    snake_parts.push_back(make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2));
+    snake_head = make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2 + 1);
+    snake_parts.push_back(snake_head);
     sem_init(&snake_sema, 0, 1);
     pthread_create(&input_thread, NULL, input_thread_work, this);
 }
