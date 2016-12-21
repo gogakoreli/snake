@@ -20,12 +20,15 @@ public:
   vector<pair<int, int>> snake_parts;
   pair<int, int> snake_head;
   void update_movement();
+  void set_snake_food(pair<int, int> snake_food);
+  bool food_eaten;
 
 private:
   pthread_t input_thread;
   sem_t snake_sema;
   enum Direction direction;
   enum Direction next_direction;
+  pair<int, int> snake_food;
 };
 
 #endif

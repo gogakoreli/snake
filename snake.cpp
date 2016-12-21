@@ -20,6 +20,7 @@ void *input_thread_work(void *arg)
 Snake::Snake(void)
 {
     direction = East;
+    food_eaten = false;
     snake_parts.push_back(make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2 - 1));
     snake_parts.push_back(make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2));
     snake_head = make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2 + 1);
@@ -85,24 +86,33 @@ void Snake::validate_direction(void)
 
 void Snake::update_movement(void)
 {
-    snake_parts.erase(snake_parts.begin());
-    pair<int, int> new_part;
+    pair<int, int> movement_part;
     enum Direction direction = get_direction();
     switch (direction)
     {
     case West:
-        new_part = make_pair(snake_head.first, snake_head.second - 1);
+        movement_part = make_pair(snake_head.first, snake_head.second - 1);
         break;
     case North:
-        new_part = make_pair(snake_head.first - 1, snake_head.second);
+        movement_part = make_pair(snake_head.first - 1, snake_head.second);
         break;
     case East:
-        new_part = make_pair(snake_head.first, snake_head.second + 1);
+        movement_part = make_pair(snake_head.first, snake_head.second + 1);
         break;
     case South:
-        new_part = make_pair(snake_head.first + 1, snake_head.second);
+        movement_part = make_pair(snake_head.first + 1, snake_head.second);
         break;
     }
-    snake_head = new_part;
-    snake_parts.push_back(new_part);
+    snake_head = movement_part;
+    snake_parts.push_back(movement_part);
+    food_eaten = snake_head.first == snake_food.first && snake_head.second == snake_food.second;
+    if (!food_eaten)
+    {
+        snake_parts.erase(snake_parts.begin());
+    }
+}
+
+void Snake::set_snake_food(pair<int, int> snake_food)
+{
+    this->snake_food = snake_food;
 }

@@ -18,6 +18,7 @@ SnakeMap::SnakeMap(Snake *snake)
 void SnakeMap::redraw(void)
 {
     clear_map(this->map_array);
+    update_snake_food();
     map_array[snake_food.first][snake_food.second] = SNAKE_FOOD_CHAR;
     for (int i = 0; i < MAP_END; i++)
     {
@@ -30,7 +31,6 @@ void SnakeMap::redraw(void)
         map_array[tmp.first][tmp.second] = SNAKE_CHAR;
     }
     update_snake_head(map_array, snake);
-    update_snake_food();
     for (int i = 0; i < MAP_HEIGHT; i++)
     {
         for (int j = 0; j < MAP_WIDTH; j++)
@@ -43,17 +43,19 @@ void SnakeMap::redraw(void)
 
 void SnakeMap::update_snake_food(void)
 {
-    while (true)
+    if (snake->food_eaten)
     {
-        int random_i = rand() % MAP_WIDTH;
-        int random_j = rand() % MAP_HEIGHT;
-        cout << "randomi:" << random_i << endl;
-        cout << "            randomj:" << random_j << endl;
-        if (map_array[random_i][random_j] == MAP_CHAR)
+        while (true)
         {
-            // map_array[random_i][random_j] = SNAKE_FOOD_CHAR;
-            snake_food = make_pair(random_i, random_j);
-            break;
+            int random_i = rand() % MAP_WIDTH;
+            int random_j = rand() % MAP_HEIGHT;
+            if (map_array[random_i][random_j] == MAP_CHAR)
+            {
+                snake_food = make_pair(random_i, random_j);
+                snake->set_snake_food(snake_food);
+                snake->food_eaten = false;
+                break;
+            }
         }
     }
 }
