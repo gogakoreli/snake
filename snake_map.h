@@ -8,6 +8,10 @@
 #define MAP_CHAR '.'
 #define MAP_END 30
 #define SNAKE_CHAR 'O'
+#define SNAKE_HEAD_WEST '<'
+#define SNAKE_HEAD_NORTH '^'
+#define SNAKE_HEAD_EAST '>'
+#define SNAKE_HEAD_SOUTH 'V'
 
 class SnakeMap
 {
@@ -21,5 +25,6 @@ private:
 };
 
 void clear_map(char map_array[MAP_HEIGHT][MAP_WIDTH]);
+void update_snake_head(char map_array[MAP_HEIGHT][MAP_WIDTH], Snake *snake);
 
 #endif

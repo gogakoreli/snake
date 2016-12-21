@@ -87,7 +87,8 @@ void Snake::update_movement(void)
 {
     snake_parts.erase(snake_parts.begin());
     pair<int, int> new_part;
-    switch (this->direction)
+    enum Direction direction = get_direction();
+    switch (direction)
     {
     case West:
         new_part = make_pair(snake_head.first, snake_head.second - 1);

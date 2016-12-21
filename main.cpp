@@ -26,7 +26,7 @@ void start_game()
     {
         snake.update_movement();
         snake_map.redraw();
-        usleep(1000 * 1000);
+        usleep(1000 * 200);
         snake.validate_direction();
     }
 }
