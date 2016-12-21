@@ -12,12 +12,15 @@
 #define SNAKE_HEAD_NORTH '^'
 #define SNAKE_HEAD_EAST '>'
 #define SNAKE_HEAD_SOUTH 'V'
+#define SNAKE_FOOD_CHAR '*'
 
 class SnakeMap
 {
 public:
   SnakeMap(Snake *snake);
   void redraw();
+  pair<int, int> snake_food;
+  void update_snake_food();
 
 private:
   char map_array[MAP_HEIGHT][MAP_WIDTH];

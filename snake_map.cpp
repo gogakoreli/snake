@@ -3,6 +3,8 @@
 #include <iostream>
 #include <vector>
 #include <utility>
+#include <stdlib.h>
+#include <time.h>
 
 using namespace std;
 
@@ -10,11 +12,13 @@ SnakeMap::SnakeMap(Snake *snake)
 {
     this->snake = snake;
     clear_map(this->map_array);
+    srand(time(NULL));
 }
 
 void SnakeMap::redraw(void)
 {
     clear_map(this->map_array);
+    map_array[snake_food.first][snake_food.second] = SNAKE_FOOD_CHAR;
     for (int i = 0; i < MAP_END; i++)
     {
         cout << endl;
@@ -26,6 +30,7 @@ void SnakeMap::redraw(void)
         map_array[tmp.first][tmp.second] = SNAKE_CHAR;
     }
     update_snake_head(map_array, snake);
+    update_snake_food();
     for (int i = 0; i < MAP_HEIGHT; i++)
     {
         for (int j = 0; j < MAP_WIDTH; j++)
@@ -33,6 +38,23 @@ void SnakeMap::redraw(void)
             cout << map_array[i][j] << " ";
         }
         cout << endl;
+    }
+}
+
+void SnakeMap::update_snake_food(void)
+{
+    while (true)
+    {
+        int random_i = rand() % MAP_WIDTH;
+        int random_j = rand() % MAP_HEIGHT;
+        cout << "randomi:" << random_i << endl;
+        cout << "            randomj:" << random_j << endl;
+        if (map_array[random_i][random_j] == MAP_CHAR)
+        {
+            // map_array[random_i][random_j] = SNAKE_FOOD_CHAR;
+            snake_food = make_pair(random_i, random_j);
+            break;
+        }
     }
 }
 
