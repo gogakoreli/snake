@@ -24,6 +24,7 @@ public:
   void set_snake_food(pair<int, int> snake_food);
   bool food_eaten;
   bool is_dead;
+  int length;
 
 private:
   pthread_t input_thread;

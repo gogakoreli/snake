@@ -13,8 +13,6 @@
 
 using namespace std;
 
-#define PAUSE_LENGTH 1000 * 200 // 200 milliseconds
-
 Snake snake;
 SnakeMap snake_map(&snake);
 

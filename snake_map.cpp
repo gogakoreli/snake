@@ -23,6 +23,7 @@ void SnakeMap::redraw(void)
     {
         cout << endl;
     }
+    update_score();
     vector<pair<int, int>> snake_parts = snake->snake_parts;
     for (int i = 0; i < snake_parts.size(); i++)
     {
@@ -93,4 +94,9 @@ void update_snake_head(char map_array[MAP_HEIGHT][MAP_WIDTH], Snake *snake)
     }
     pair<int, int> snake_head = snake->snake_head;
     map_array[snake_head.first][snake_head.second] = snake_head_char;
+}
+
+void SnakeMap::update_score(void)
+{
+    cout << "Score:" << snake->length << endl;
 }

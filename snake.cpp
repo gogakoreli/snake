@@ -24,6 +24,7 @@ Snake::Snake(void)
     next_direction = direction;
     food_eaten = false;
     is_dead = false;
+    length = INITIAL_SNAKE_LENGTH;
     clear_snake_world();
     initialize_snake();
     sem_init(&snake_sema, 0, 1);
@@ -107,7 +108,11 @@ void Snake::update_movement(void)
     snake_head = movement_part;
     snake_parts.push_back(movement_part);
     food_eaten = snake_head.first == snake_food.first && snake_head.second == snake_food.second;
-    if (!food_eaten)
+    if (food_eaten)
+    {
+        length++;
+    }
+    else
     {
         pair<int, int> tail = snake_parts.front();
         snake_world_array[tail.first][tail.second]--;

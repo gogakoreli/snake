@@ -11,6 +11,7 @@ public:
   void redraw();
   pair<int, int> snake_food;
   void update_snake_food();
+  void update_score();
 
 private:
   char map_array[MAP_HEIGHT][MAP_WIDTH];
