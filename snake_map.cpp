@@ -14,6 +14,7 @@ SnakeMap::SnakeMap(Snake *snake)
     this->snake = snake;
     clear_map(this->map_array);
     srand(time(NULL));
+    update_snake_food(true);
 }
 
 void SnakeMap::redraw(void)
@@ -31,7 +32,7 @@ void SnakeMap::redraw(void)
         map_array[tmp.first][tmp.second] = SNAKE_CHAR;
     }
     update_snake_head(map_array, snake);
-    update_snake_food();
+    update_snake_food(false);
     map_array[snake_food.first][snake_food.second] = SNAKE_FOOD_CHAR;
     for (int i = 0; i < MAP_HEIGHT; i++)
     {
@@ -43,9 +44,9 @@ void SnakeMap::redraw(void)
     }
 }
 
-void SnakeMap::update_snake_food(void)
+void SnakeMap::update_snake_food(bool force_update)
 {
-    if (snake->food_eaten)
+    if (snake->food_eaten || force_update)
     {
         while (true)
         {
