@@ -8,8 +8,12 @@
 #include "input.h"
 #include "snake.h"
 #include "snake_map.h"
+#include <utility>
+#include "macros.h"
 
 using namespace std;
+
+#define PAUSE_LENGTH 1000 * 200 // 200 milliseconds
 
 Snake snake;
 SnakeMap snake_map(&snake);
@@ -20,13 +24,40 @@ void initialize()
     input_enter_off();
 }
 
+bool is_game_end()
+{
+    bool result = false;
+    pair<int, int> snake_head = snake.snake_head;
+    if (snake_head.first < 0 || snake_head.first >= MAP_WIDTH || snake_head.second < 0 || snake_head.second >= MAP_HEIGHT)
+    {
+        result = true;
+    }
+    if (snake.is_dead)
+    {
+        result = true;
+    }
+    return result;
+}
+
+void game_over()
+{
+    cout << "GAME IS OVER" << endl;
+}
+
 void start_game()
 {
     while (true)
     {
         snake.update_movement();
+        if (is_game_end())
+        {
+            game_over();
+            break;
+        }
         snake_map.redraw();
-        usleep(1000 * 200);
+
+        usleep(PAUSE_LENGTH);
+
         snake.validate_direction();
     }
 }

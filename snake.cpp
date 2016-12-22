@@ -4,6 +4,7 @@
 #include <vector>
 #include <utility>
 #include "snake_map.h"
+#include "macros.h"
 
 using namespace std;
 
@@ -20,11 +21,11 @@ void *input_thread_work(void *arg)
 Snake::Snake(void)
 {
     direction = East;
+    next_direction = direction;
     food_eaten = false;
-    snake_parts.push_back(make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2 - 1));
-    snake_parts.push_back(make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2));
-    snake_head = make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2 + 1);
-    snake_parts.push_back(snake_head);
+    is_dead = false;
+    clear_snake_world();
+    initialize_snake();
     sem_init(&snake_sema, 0, 1);
     pthread_create(&input_thread, NULL, input_thread_work, this);
 }
@@ -108,11 +109,40 @@ void Snake::update_movement(void)
     food_eaten = snake_head.first == snake_food.first && snake_head.second == snake_food.second;
     if (!food_eaten)
     {
+        pair<int, int> tail = snake_parts.front();
+        snake_world_array[tail.first][tail.second]--;
         snake_parts.erase(snake_parts.begin());
+    }
+    int head_value = ++snake_world_array[snake_head.first][snake_head.second];
+    if (head_value > 1)
+    {
+        is_dead = true;
     }
 }
 
 void Snake::set_snake_food(pair<int, int> snake_food)
 {
     this->snake_food = snake_food;
+}
+
+void Snake::clear_snake_world(void)
+{
+    for (int i = 0; i < MAP_HEIGHT; i++)
+    {
+        for (int j = 0; j < MAP_WIDTH; j++)
+        {
+            snake_world_array[i][j] = 0;
+        }
+    }
+}
+
+void Snake::initialize_snake(void)
+{
+    for (int i = 0; i < INITIAL_SNAKE_LENGTH; i++)
+    {
+        pair<int, int> snake_part = make_pair(MAP_HEIGHT / 2, MAP_WIDTH / 2 - (INITIAL_SNAKE_LENGTH / 2) + i);
+        snake_parts.push_back(snake_part);
+        snake_world_array[snake_part.first][snake_part.second] = 1;
+    }
+    snake_head = snake_parts[snake_parts.size() - 1];
 }

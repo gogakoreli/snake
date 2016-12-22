@@ -5,6 +5,7 @@
 #include <utility>
 #include <stdlib.h>
 #include <time.h>
+#include "macros.h"
 
 using namespace std;
 
@@ -18,8 +19,6 @@ SnakeMap::SnakeMap(Snake *snake)
 void SnakeMap::redraw(void)
 {
     clear_map(this->map_array);
-    update_snake_food();
-    map_array[snake_food.first][snake_food.second] = SNAKE_FOOD_CHAR;
     for (int i = 0; i < MAP_END; i++)
     {
         cout << endl;
@@ -31,6 +30,8 @@ void SnakeMap::redraw(void)
         map_array[tmp.first][tmp.second] = SNAKE_CHAR;
     }
     update_snake_head(map_array, snake);
+    update_snake_food();
+    map_array[snake_food.first][snake_food.second] = SNAKE_FOOD_CHAR;
     for (int i = 0; i < MAP_HEIGHT; i++)
     {
         for (int j = 0; j < MAP_WIDTH; j++)
