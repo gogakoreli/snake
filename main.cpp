@@ -26,7 +26,7 @@ bool is_game_end()
 {
     bool result = false;
     pair<int, int> snake_head = snake.snake_head;
-    if (snake_head.first < 0 || snake_head.first >= MAP_WIDTH || snake_head.second < 0 || snake_head.second >= MAP_HEIGHT)
+    if (snake_head.first < 0 || snake_head.first >= MAP_HEIGHT || snake_head.second < 0 || snake_head.second >= MAP_WIDTH)
     {
         result = true;
     }
